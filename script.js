@@ -49,6 +49,10 @@ function calculate() {
     displayValue = displayValue.replace(/π/g, '3.141592653589793238462643383279502884197');
     displayValue = displayValue.replace(/e/g, '2.71828182845904523536028747135266249');
     displayValue = displayValue.replace(/E/g, '10**');
+    displayValue = displayValue.replace(/%/g, '*0.01');
+    displayValue = displayValue.replace(/√/g, 'Math.sqrt');
+
+
 
 
     ansValue = eval(displayValue); 
