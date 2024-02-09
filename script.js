@@ -10,7 +10,7 @@ function updateDisplay(value) {
 // Function to append characters to the display
 function appendToDisplay(value) {
   if (lastButtonEqual == true) {
-    if (value !== "+" || value !== "-" || value !== "÷" || value !== "×") {
+    if (value !== "+" && value !== "-" && value !== "÷" && value !== "×") {
       clearDisplay();
     }
   }
@@ -46,7 +46,10 @@ function calculate() {
     displayValue = displayValue.replace(/(\d+)!/g, function(match, p1) {
       return factorial(parseInt(p1));
     });    
-    displayValue = displayValue.replace(/π/g, 'Math.pi');
+    displayValue = displayValue.replace(/π/g, '3.141592653589793238462643383279502884197');
+    displayValue = displayValue.replace(/e/g, '2.71828182845904523536028747135266249');
+    displayValue = displayValue.replace(/E/g, '10**');
+
 
     ansValue = eval(displayValue); 
     updateDisplay(ansValue); 
