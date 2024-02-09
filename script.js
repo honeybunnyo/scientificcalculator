@@ -11,7 +11,7 @@ function updateDisplay(value) {
 
 function appendToDisplay(value) {
   if (lastButtonEqual == true) {
-    if (value !== "+") {
+    if (value !== "+" || value !== "-" || value !== "÷" || value !== "×") {
       clearDisplay();
     }
   }
@@ -40,6 +40,10 @@ function clearLastEntry() {
 // Function to calculate the expression
 function calculate() {
   try {
+    displayValue = displayValue.replace(/sin/g, 'Math.sin');
+    displayValue = displayValue.replace(/cos/g, 'Math.cos');
+    displayValue = displayValue.replace(/tan/g, 'Math.tan');
+    displayValue = displayValue.replace(/ln/g, 'Math.log');
     ansValue = eval(displayValue); 
     updateDisplay(ansValue); // Update the display with the result
     
