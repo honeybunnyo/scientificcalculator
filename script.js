@@ -1,5 +1,5 @@
 let displayValue = '';
-var ansValue = ''; // Global variable to store the result
+var ansValue = '';
 let lastButtonEqual = false;
 
 // Function to update the display
@@ -8,7 +8,6 @@ function updateDisplay(value) {
 }
 
 // Function to append characters to the display
-
 function appendToDisplay(value) {
   if (lastButtonEqual == true) {
     if (value !== "+" || value !== "-" || value !== "÷" || value !== "×") {
@@ -16,7 +15,6 @@ function appendToDisplay(value) {
     }
   }
   lastButtonEqual = false;
-
   if (value === 'Ans') {
     useAns(); // If 'Ans' is clicked, append the ansValue to the display
   } 
@@ -25,6 +23,7 @@ function appendToDisplay(value) {
     updateDisplay(displayValue);
   }
 }
+
 // Function to clear the entire display
 function clearDisplay() {
   displayValue = '';
@@ -44,15 +43,29 @@ function calculate() {
     displayValue = displayValue.replace(/cos/g, 'Math.cos');
     displayValue = displayValue.replace(/tan/g, 'Math.tan');
     displayValue = displayValue.replace(/ln/g, 'Math.log');
+    displayValue = displayValue.replace(/(\d+)!/g, function(match, p1) {
+      return factorial(parseInt(p1));
+    });    
+    displayValue = displayValue.replace(/π/g, 'Math.pi');
+
     ansValue = eval(displayValue); 
-    updateDisplay(ansValue); // Update the display with the result
+    updateDisplay(ansValue); 
     
     // Update Display value to be new answer for next time
     displayValue = ansValue;
     lastButtonEqual = true;
   } catch (error) {
     updateDisplay('Error');
+    lastButtonEqual = true;
   }
+}
+
+function factorial(n) {
+  let result = 1;
+  for (let i = 2; i <= n; i++) {
+    result *= i;
+  }
+  return result;
 }
 
 function useAns() {
