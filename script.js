@@ -1,4 +1,6 @@
 let displayValue = '';
+var ansValue = ''; // Global variable to store the result
+let lastButtonEqual = false;
 
 // Function to update the display
 function updateDisplay(value) {
@@ -6,11 +8,23 @@ function updateDisplay(value) {
 }
 
 // Function to append characters to the display
-function appendToDisplay(value) {
-  displayValue += value;
-  updateDisplay(displayValue);
-}
 
+function appendToDisplay(value) {
+  if (lastButtonEqual == true) {
+    if (value !== "+") {
+      clearDisplay();
+    }
+  }
+  lastButtonEqual = false;
+
+  if (value === 'Ans') {
+    useAns(); // If 'Ans' is clicked, append the ansValue to the display
+  } 
+  else {
+    displayValue += value; 
+    updateDisplay(displayValue);
+  }
+}
 // Function to clear the entire display
 function clearDisplay() {
   displayValue = '';
@@ -26,10 +40,18 @@ function clearLastEntry() {
 // Function to calculate the expression
 function calculate() {
   try {
-    const result = eval(displayValue); 
-    updateDisplay(result);
-    displayValue = result.toString(); 
+    ansValue = eval(displayValue); 
+    updateDisplay(ansValue); // Update the display with the result
+    
+    // Update Display value to be new answer for next time
+    displayValue = ansValue;
+    lastButtonEqual = true;
   } catch (error) {
     updateDisplay('Error');
   }
+}
+
+function useAns() {
+  displayValue += ansValue; // Append the ansValue to the display
+  updateDisplay(displayValue); // Update the display with the new value
 }
